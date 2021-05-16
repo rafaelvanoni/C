@@ -1,2 +1,2 @@
-# C
-Examples and snippets of C programming
+## C
+This repository contains examples and snippets of C code I've accumulated over time.
