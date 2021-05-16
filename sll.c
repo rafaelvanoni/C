@@ -1,3 +1,6 @@
+/*
+ * https://github.com/rafaelvanoni/C.git
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
