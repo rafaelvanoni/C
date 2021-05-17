@@ -5,10 +5,11 @@
 #include <stdio.h>
 #include <time.h>
 #include <assert.h>
+#include <stdbool.h>
 
-#define	MIN_NODES	(3)
-#define	MAX_NODES	(8)
-#define	MAX_VAL		(10)
+#define	MIN_NODES	(10)
+#define	MAX_NODES	(30)
+#define	MAX_VAL		(99)
 
 struct node {
 	int		val;
@@ -134,17 +135,14 @@ bt_find_val(struct node *t, int val)
 		return (true);
 	}
 
-	bt_find_val(t->l, val);
-	bt_find_val(t->r, val);
-
-	return (false);
+	return (bt_find_val(t->l, val) || bt_find_val(t->r, val));
 }
 
 int
 main(int argc, char **argv)
 {
 	struct node *t = NULL, *n;
-	int i, n_nodes;
+	int i, n_nodes, last_val;
 
 	srand(time(NULL));
 
@@ -158,6 +156,8 @@ main(int argc, char **argv)
 		n = calloc(1, sizeof (struct node));
 		n->val = rand() % MAX_VAL;
 		bt_add(&t, n);
+
+		last_val = n->val;
 	}
 
 	printf("pretty printing in depth first in order..\n");
@@ -177,6 +177,8 @@ main(int argc, char **argv)
 
 	printf("counting nodes..found %d\n", bt_count(t));
 	printf("checking height..found %d\n", bt_height(t));
+	printf("looking for node with val %d...%s\n", last_val,
+	    bt_find_val(t, last_val) ? "found" : "not found");
 
 	printf("deleting the tree..\n");
 	bt_delete(&t);
